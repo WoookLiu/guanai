@@ -1,0 +1,36 @@
+public class _1014 {
+
+    private static final int ARRAY_LENGTH = 26;
+    private static final char[] ARRAY = new char[ARRAY_LENGTH];
+
+    static {
+        for (int i = 0; i < ARRAY_LENGTH; i++) {
+            ARRAY[i] = (char) ('A' + i);
+        }
+    }
+
+    //O(n)
+    private static void reverse(char[] array, int startIndex, int endIndex) {
+        int indexSum = startIndex + endIndex;
+        int middleIndex = indexSum / 2;
+        for (int i = startIndex; i <= middleIndex; i++) {
+            char tmp = array[i];
+            array[i] = array[indexSum - i];
+            array[indexSum - i] = tmp;
+        }
+    }
+
+    //O(n)
+    private static void rightMove(char[] array, int count) {
+        //利用循环特性简化右移次数
+        count = count % array.length;
+        reverse(array, 0, array.length - 1 - count);
+        reverse(array, array.length - count, array.length - 1);
+        reverse(array, 0, array.length - 1);
+    }
+
+    public static void main(String[] args) {
+        rightMove(ARRAY, 2);
+        System.out.print(Arrays.toString(ARRAY));
+    }
+}
